@@ -31,6 +31,10 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState(true);
   const [weather, setWeather] = useState({});
 const [sunset,setsunset]=useState("");
+/**
+ * The function `handleSearch` takes a search input and fetches locations based on the input if it is
+ * longer than 2 characters.
+ */
   const handleSearch = search => {
     // console.log('value: ',search);
     if (search && search.length > 2)
@@ -40,6 +44,11 @@ const [sunset,setsunset]=useState("");
       });
   };
 
+  /**
+   * The function `handleLocation` takes a location as input, sets loading to true, toggles search to
+   * false, clears the locations array, fetches weather forecast data for the given location, sets
+   * loading to false, sets the weather data, and stores the city name in local storage.
+   */
   const handleLocation = loc => {
     setLoading(true);
     toggleSearch(false);
@@ -66,6 +75,9 @@ const [sunset,setsunset]=useState("");
       setConvert(value === 'true');
     }
   };
+/**
+ * The function `GJ` toggles the value of `convert` and stores the updated value in local storage.
+ */
   const GJ = async () => {
     const newValue = !convert;
     setConvert(newValue);
@@ -73,6 +85,10 @@ const [sunset,setsunset]=useState("");
     storeData('convert', newValue.toString());
   };
 
+ /**
+  * The function fetchMyWeatherData fetches weather forecast data for a specified city, sets the
+  * weather state, and updates the sunset time.
+  */
   const fetchMyWeatherData = async () => {
     let myCity = await getData('city');
     let cityName = 'Dubai';
@@ -101,6 +117,10 @@ let timeString = sunset
 let [hourString,  period] = timeString.split(/:| /);
 let w = parseInt(hourString, 10);
 
+/* The above code is checking the time of day (AM or PM) and the current weather conditions to
+determine the appropriate weather icon to display. It first checks if it is PM and the hour is not
+12, in which case it adds 12 to the hour. Then, it checks if it is AM and the hour is 12, in which
+case it sets the hour to 0. */
 if (period === 'PM' && w !== 12) {
   w += 12;
 } else if (period === 'AM' && hour === 12) {
@@ -141,6 +161,7 @@ if (period === 'PM' && w !== 12) {
                 }  
                 
   return (
+    
     <View className="flex-1 relative">
       <StatusBar backgroundColor={'#0A3239'} />
    
